@@ -13,8 +13,6 @@ function parseInput(input: string) {
 }
 
 //1.
-const input = parseInput(fs.readFileSync('./day1/input.txt', 'utf-8'));
-
 function part1(input: number[][]) {
   return pipe(
     input,
@@ -24,23 +22,18 @@ function part1(input: number[][]) {
         pipe(array2, orderby(num => num), toarray()),
         (n1, n2) => [n1, n2]
       ),
-    map(([n1, n2]) => Math.abs(n1 - n2)),
-    sum()
+    sum(([n1, n2]) => Math.abs(n1 - n2)),
   )
 }
-
-console.log(input);
-console.log(part1(input));
 
 //2.
 function part2([a1, a2]: number[][]) {
-  return pipe(
-    a1,
-    map(n1 => a2.filter(n2 => n2 === n1).length * n1),
-    sum()
-  )
+  return sum(a1, n1 => a2.filter(n2 => n2 === n1).length * n1);
 }
 
+const input = parseInput(fs.readFileSync('./day1/input.txt', 'utf-8'));
+console.log(input);
+console.log(part1(input));
 console.log(part2(input));
 
 

@@ -19,19 +19,15 @@ function mapToSafe(input: number[][]) {
         toarray()
       )
     ),
-    map(line => (line.every(n => n > 0) || line.every(n => n < 0)) && line.every(n => {
-      const abs = Math.abs(n);
-      return abs > 0 && abs < 4;
-    })),
+    map(line =>
+      (line.every(n => n > 0) || line.every(n => n < 0)) &&
+      line.every(n => Math.abs(n) > 0 && Math.abs(n) < 4)
+    ),
     toarray()
   )
 }
 
 //1.
-const input = parseInput(fs.readFileSync('./day2/input.txt', 'utf-8'));
-
-console.log(input);
-
 function part1(input: number[][]) {
   return count(mapToSafe(input), l => !!l);
 }
@@ -52,12 +48,7 @@ function part2(input: number[][]) {
   )
 }
 
+const input = parseInput(fs.readFileSync('./day2/input.txt', 'utf-8'));
+console.log(input);
 console.log(part1(input));
 console.log(part2(input));
-
-
-
-
-
-
-
