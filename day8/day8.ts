@@ -1,5 +1,5 @@
 const fs = require('fs');
-import { count, Dictionary, distinct, filter, filtermap, flatmap, groupbytoobject, orderby, pipe, toarray } from "powerseq";
+import { count, Dictionary, distinct, filter, filtermap, flatmap, groupbytoobject, pipe, toarray } from "powerseq";
 
 type Point = { x: number; y: number };
 type FrequencyMap = Dictionary<Point[]>;
