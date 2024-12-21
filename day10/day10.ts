@@ -1,6 +1,6 @@
+const fs = require('fs');
 import { filtermap, flatmap, pipe, toarray, map, distinct, count, sum } from "powerseq";
 
-const fs = require('fs');
 const directions = [[1, 0], [0, 1], [-1, 0], [0, -1]];
 
 function parseInput(input: string) {
