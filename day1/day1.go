@@ -35,15 +35,15 @@ func Part1(){
 func Part2(){
 	parsed := parseInput()
 	left, right := parsed[0], parsed[1]
+	
+	similarityMap := make(map[int]int)
+	for _, num := range right {
+		similarityMap[num]++
+	}
+
 	var sum int
-	for i := 0; i < len(left); i++ {
-		var score int
-		for _, num := range right{
-			if(num == left[i]){
-				score++
-			}
-		}
-		sum = sum + (left[i] * score)
+	for _, num := range left {
+		sum += num * similarityMap[num]
 	}
 	fmt.Println(sum)
 }
