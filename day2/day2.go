@@ -70,10 +70,10 @@ func getCorrectLines(parsed [][]int, allowSingleMistake bool) int{
 
 func Part1(){
 	parsed := parseInput()
-	fmt.Println(getCorrectLines(parsed, false))
+	fmt.Println("Day 2, part 1: ", getCorrectLines(parsed, false))
 }
 
 func Part2(){
 	parsed := parseInput()
-	fmt.Println(getCorrectLines(parsed, true))
+	fmt.Println("Day 2, part 2: ", getCorrectLines(parsed, true))
 }

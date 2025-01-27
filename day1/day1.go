@@ -29,7 +29,7 @@ func Part1(){
 	for i := 0; i < len(left); i++ {
 		sum = sum + aochelpers.AbsInt(left[i] - right[i])
 	}
-	fmt.Println(sum)
+	fmt.Println("Day 1, part 1: ", sum)
 }
 
 func Part2(){
@@ -45,5 +45,5 @@ func Part2(){
 	for _, num := range left {
 		sum += num * similarityMap[num]
 	}
-	fmt.Println(sum)
+	fmt.Println("Day 1, part 2: ", sum)
 }
