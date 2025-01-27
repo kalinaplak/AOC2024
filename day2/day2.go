@@ -21,32 +21,59 @@ func parseInput() [][] int{
 	return result
 }
 
-func Part1(){
-	parsed := parseInput()
-	var result int
-	for _, line := range parsed {
-		isSafe := true
-		var increaseCount, decreaseCount int
-		for i := 0; i < len(line)-1; i++ {
-			diff := line[i+1] - line[i]
-			if aochelpers.AbsInt(diff) >= 4 {
-				isSafe = false
-				break
+
+func processSingleLine(line []int, skipIndex int) bool {
+	isSafe := true
+	var increaseCount, decreaseCount int
+	for i := 0; i < len(line)-1; i++ {
+		if(skipIndex == -1 || i != skipIndex){
+			nextIndex := aochelpers.Ternary(skipIndex == i + 1 && i + 2 < len(line), i + 2, i + 1).(int)
+			if(nextIndex != skipIndex){
+				diff := line[nextIndex] - line[i]
+				if aochelpers.AbsInt(diff) >= 4 {
+					isSafe = false
+					break
+				}
+				if diff > 0 {
+					increaseCount++
+				} else if diff < 0 {
+					decreaseCount++
+				}
 			}
-			//tu by można było zoptymalizować żeby przerywać szybciej pętlę
-			if(diff > 0){
-				increaseCount++
-			} else if(diff < 0){
-				decreaseCount++
-			}
-		}
-		if(isSafe && (increaseCount == len(line) -1 || decreaseCount == len(line) -1)){
-			result++
 		}
 	}
-	fmt.Println(result)
+	skipped := aochelpers.Ternary(skipIndex == -1, 0, 1).(int)
+	if(increaseCount != len(line) -1 - skipped && decreaseCount != len(line) -1 - skipped){
+		isSafe = false
+	}
+	return isSafe
+}
+
+func getCorrectLines(parsed [][]int, allowSingleMistake bool) int{
+	var result int
+	for _, line := range parsed {
+		isSafe := processSingleLine(line, -1)
+		if(isSafe){
+			result++
+		} else if allowSingleMistake {
+			for i :=0; i < len(line); i++ {
+				isSafe = processSingleLine(line, i)
+				if(isSafe){
+					result++
+					break
+				}
+			}
+		}
+	}
+	return result
+}
+
+func Part1(){
+	parsed := parseInput()
+	fmt.Println(getCorrectLines(parsed, false))
 }
 
 func Part2(){
-
+	parsed := parseInput()
+	fmt.Println(getCorrectLines(parsed, true))
 }

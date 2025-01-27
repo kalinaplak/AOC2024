@@ -11,4 +11,5 @@ func main(){
 	day1.Part2();
 
 	day2.Part1();
+	day2.Part2();
 }
