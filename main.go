@@ -1,7 +1,7 @@
 package main
 
 import (
-	"aoc2024/day6"
+	"aoc2024/day7"
 )
 
 //go run ./main.go
@@ -21,7 +21,10 @@ func main(){
 	// day5.Part1()
 	// day5.Part2()
 
-	day6.Part1()
-	day6.Part2()
+	// day6.Part1()
+	// day6.Part2()
+
+	day7.Part1()
+	day7.Part2()
 
 }

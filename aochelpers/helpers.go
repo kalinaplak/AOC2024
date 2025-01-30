@@ -23,6 +23,15 @@ func ParseInt(s string) int {
 	return num
 }
 
+func ParseInt64(s string) int64 {
+	num, err := strconv.ParseInt(s, 10, 64)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	return num
+}
+
+
 func AbsInt(x int) int {
 	if x < 0 {
 		return -x
