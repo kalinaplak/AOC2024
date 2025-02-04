@@ -1,34 +1,33 @@
 const fs = require('fs');
-import { pipe, map, reduce, orderby, toarray, zip, sum } from 'powerseq';
+import { groupbytoobject, map, orderby, pipe, reduce, sum, zip } from 'powerseq';
 
 function parseInput(input: string) {
   return pipe(
     input.split(/\n/),
     map(line => line.trim().split(/\s+/).map(Number)),
     reduce(
-      ([a1, a2], [num1, num2]) => [a1.concat(num1), a2.concat(num2)],
-      [[], []]
+      ([accLeft, accRight], [currleft, currRight]) => [accLeft.concat(currleft), accRight.concat(currRight)],
+      [[], []] as number[][]
     ),
   );
 }
 
 //1.
-function part1(input: number[][]) {
+function part1([left, right]: number[][]) {
   return pipe(
-    input,
-    ([array1, array2]) =>
-      zip(
-        pipe(array1, orderby(num => num), toarray()),
-        pipe(array2, orderby(num => num), toarray()),
-        (n1, n2) => [n1, n2]
-      ),
-    sum(([n1, n2]) => Math.abs(n1 - n2)),
+    zip(
+      orderby(left, num => num),
+      orderby(right, num => num),
+      (l, r) => [l, r]
+    ),
+    sum(([l, r]) => Math.abs(l - r)),
   )
 }
 
 //2.
-function part2([a1, a2]: number[][]) {
-  return sum(a1, n1 => a2.filter(n2 => n2 === n1).length * n1);
+function part2([left, right]: number[][]) {
+  const map = groupbytoobject(right, n => n, v => v);
+  return sum(left, l => (map[l]?.length || 0) * l);
 }
 
 const input = parseInput(fs.readFileSync('./day1/input.txt', 'utf-8'));
