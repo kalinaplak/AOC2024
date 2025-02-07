@@ -56,9 +56,6 @@ func canMoveToField(grid [][]MapField, row, col int) bool {
 }
 
 func markAsVisited(grid [][]MapField, row, col, dir int) {
-	if !isInsideMap(grid, row, col) {
-		return
-	}
 	grid[row][col].Visited = true
 	grid[row][col].VisitedDirection = dir
 }
@@ -114,22 +111,16 @@ func Part1() {
 
 func Part2() {
 	input := parseInput(aochelpers.ReadFileAsString("./day6/input.txt"))
-	visited := moveThroughMap(input)
-
-	var visitedFields []MapField
-	for _, f := range visited.Visited {
-		if f.Value != "^" {
-			visitedFields = append(visitedFields, f)
-		}
-	}
-
+	result := moveThroughMap(input)
 	loopCount := 0
-	for _, f := range visitedFields {
-		clone := parseInput(aochelpers.ReadFileAsString("./day6/input.txt"))
-		clone[f.Position.Row][f.Position.Column].Value = "#"
-		result := moveThroughMap(clone)
-		if result.Loop {
-			loopCount++
+	for _, f := range result.Visited {
+		if f.Value != "^" {
+			clone := parseInput(aochelpers.ReadFileAsString("./day6/input.txt"))
+			clone[f.Position.Row][f.Position.Column].Value = "#"
+			result := moveThroughMap(clone)
+			if result.Loop {
+				loopCount++
+			}
 		}
 	}
 

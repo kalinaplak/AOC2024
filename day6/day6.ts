@@ -79,7 +79,7 @@ function part2(map: MapField[][]) {
     visited.visited,
     filter(f => f.value !== '^'),
     count(f => {
-      const clone: MapField[][] = JSON.parse(JSON.stringify(map));
+      const clone: MapField[][] = parseInput(fs.readFileSync('./day6/input.txt', 'utf-8'));
       clone[f.position.row][f.position.column].value = '#';
       return moveThroughMap(clone).loop
     })
@@ -91,4 +91,4 @@ console.log(part1(input).visited.length);
 const before = new Date().getTime();
 console.log(part2(input));
 const after = new Date().getTime();
-console.log(`Part 2: ${after - before} ms`); //Took 45035 ms
+console.log(`Part 2: ${after - before} ms`); //Took 10690 ms
